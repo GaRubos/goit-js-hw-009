@@ -1,3 +1,9 @@
+// Описаний в документації
+import SimpleLightbox from "simplelightbox";
+// Додатковий імпорт стилів
+import "simplelightbox/dist/simple-lightbox.min.css";
+
+
 const images = [
   {
     preview:
@@ -66,27 +72,10 @@ const images = [
 
 const container = document.querySelector('.gallery');
 
-console.log(container);
-
 container.insertAdjacentHTML('beforeend', createMarkup(images));
-// container.addEventListener('click', handleclick)
 
 
 function createMarkup(arr) {
-    // return arr.map(image => `
-    // <li class="gallery-item">
-    // <a class="gallery-link" href='${image.original}' onclick="return false;">
-    // <img
-    //   class="gallery-image"
-    //   src="${image.preview}"
-    //   width= 340;
-    //   data-source="${image.original}"
-    //   alt="${image.description}"
-    // />
-    // </a>
-    // </li>
-    // `).join('');
-  
   return arr.map(image => `
      <li class="gallery-item">
 	<a class="gallery-link" href="${image.original}">
@@ -94,26 +83,12 @@ function createMarkup(arr) {
 			class="gallery-image" 
 			src="${image.preview}" 
       width= 340;
-			alt="${image.description}" 
-            data-source="${image.original}"
+			title="${image.description}" 
 			/>
 	 </a>
     </li>
     `).join('');
-  
-  
 }
 
 
-function handleclick(event) {
-
-  event.preventDefault();
-
-    // Получаем ссылку на картинку, по которой кликнули
-  const clickedImageSource = event.target.dataset.source;
-
-    // Находим объект из массива images, у которого совпадает original с кликнутой картинкой
-  const clickedImage = images.find(image => image.original === clickedImageSource);
-
-  
-}
+let lightbox = new SimpleLightbox('.gallery a', {  });
